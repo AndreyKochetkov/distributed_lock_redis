@@ -2,6 +2,12 @@ import argparse
 
 
 def create_parser():
+    """ Create parser for command-line arguments
+
+    Returns:
+        instance of argparse.ArgumentParser . It has all command-line arguments: host, port, db, getErrors.
+        If they haven't been sent, they will be set by default values
+    """
     parser = argparse.ArgumentParser()
     parser.add_argument("--getErrors",
                         type=str,
@@ -23,6 +29,14 @@ def create_parser():
 
 
 def get_errors(cursor):
+    """ Print all error messages and delete them from redis
+
+    Args:
+        cursor: class 'redis.client.StrictRedis', cursor for connection to redis
+
+    Returns:
+        None: when list of error will be empty
+    """
     while True:
         message = cursor.lpop("errors")
         if message is None:
