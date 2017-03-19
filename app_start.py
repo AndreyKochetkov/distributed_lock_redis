@@ -37,7 +37,7 @@ def main():
     except Exception as e:
         print("Error: " + str(e))
 
-    # secondly, try to become a handler
+    # secondly, become a handler
     handler = Handler(cursor, id_of_instance)
     try:
         while True:

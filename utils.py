@@ -40,6 +40,6 @@ def get_errors(cursor):
     while True:
         message = cursor.lpop("errors")
         if message is None:
-            print("Error list is empty")
+            print("There are no errors more")
             return None
         print(message)

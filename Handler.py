@@ -60,7 +60,7 @@ class Handler:
             None
         """
         ###  handling ###
-        sleep(0.5)
+        sleep(1)
         ###  __   ###
         if randint(0, 20) == 0:  # if we have a error with 5% chance
             self._send_error_message(message)
