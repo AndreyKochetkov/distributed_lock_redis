@@ -1,16 +1,31 @@
-from time import sleep, clock
-from Generator import Generator
-from Handler import Handler
 import redis
 
+import sys
+from Generator import Generator
+from Handler import Handler
+from utils import create_parser, get_errors
+
+
 def main():
-    host = "localhost"
-    port = 6379
-    db = 0
+    parser = create_parser()
+    namespace = parser.parse_args()
 
-    cursor = redis.StrictRedis(host=host, port=port, db=db)
 
-    id_of_instance = cursor.incr("amount_of_instances")
+
+    host = namespace.host
+    port = namespace.port
+    db = namespace.db
+
+    try:
+        cursor = redis.StrictRedis(host=host, port=port, db=db)
+        id_of_instance = cursor.incr("amount_of_instances")
+    except Exception as e:
+        print("Error: connection to db failed \n" + str(e))
+        sys.exit()
+
+    if namespace.getErrors is not None:
+        get_errors(cursor)
+        sys.exit()
 
     generator = Generator(cursor, id_of_instance)
     try:
@@ -30,9 +45,6 @@ def main():
 
     except Exception as e:
         print("Error: " + str(e))
-    print("усе")
-
-
 
 
 if __name__ == "__main__":

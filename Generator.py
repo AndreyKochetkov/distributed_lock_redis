@@ -1,11 +1,10 @@
-import redis
 from time import sleep, clock
 from faker import Factory
 
 
 class Generator:
     amount_of_messages = 10000000
-    loop_for_updt_lock = 5
+    loop_for_update_lock = 5
     key_of_queue = "queue"
 
     def __init__(self, cursor, id_of_gen):
@@ -19,9 +18,8 @@ class Generator:
 
         fake = Factory.create()
         for i in range(Generator.amount_of_messages):  # all messages of this generator
-            # TODO сделать это конвеером
-            for j in range(Generator.loop_for_updt_lock):  # messages for update lock
-                sleep(0.5)
+            for j in range(Generator.loop_for_update_lock):  # messages for update lock
+                sleep(0.1)
                 message = fake.text(max_nb_chars=100)
                 self.cursor.rpush(Generator.key_of_queue, message)
                 print(message)
