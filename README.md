@@ -7,6 +7,8 @@
         - Faker 8.1.2: random text
 
     Запуск:
+        $ python  app_start.py - просто запустить программу
+
         $ python  app_start.py [-h] [--getErrors GETERRORS] [--host HOST] [--port PORT]
                     [--db DB] [--cleanTemp CLEANTEMP]
          -h: show help info
