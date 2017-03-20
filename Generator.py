@@ -30,7 +30,7 @@ class Generator:
         self.cursor = cursor
         self.id_of_gen = id_of_gen
 
-    # property?
+    
     def generate_messages(self):
         """ Public function for handle messages
 

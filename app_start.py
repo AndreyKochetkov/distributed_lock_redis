@@ -30,6 +30,7 @@ def main():
         get_errors(cursor)
         sys.exit()
 
+    # if there is a "cleanTemp" argument
     if namespace.cleanTemp is not None:
         clean_db(cursor, id_of_instance)
         sys.exit()
