@@ -3,7 +3,7 @@ import sys
 
 from Generator import Generator
 from Handler import Handler
-from utils import create_parser, get_errors
+from utils import create_parser, get_errors, clean_db
 
 
 def main():
@@ -28,6 +28,10 @@ def main():
     # if there is a "getErrors" argument
     if namespace.getErrors is not None:
         get_errors(cursor)
+        sys.exit()
+
+    if namespace.cleanTemp is not None:
+        clean_db(cursor, id_of_instance)
         sys.exit()
 
     # firstly, try to become a generator

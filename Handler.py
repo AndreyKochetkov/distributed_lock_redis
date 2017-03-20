@@ -79,7 +79,7 @@ class Handler:
         pipe = self.cursor.pipeline()
         pipe.hdel(
             "temp:handler:{}".format(self.id_of_handler),
-            {"message:{}".format(Handler.current_message_id): message}
+            "message:{}".format(Handler.current_message_id)
         )
         pipe.rpush("errors", "{}:{}".format(Handler.current_message_id, message))
         pipe.execute()
@@ -96,9 +96,9 @@ class Handler:
         pipe = self.cursor.pipeline()
         pipe.hdel(
             "temp:handler:{}".format(self.id_of_handler),
-            {"message:{}".format(Handler.current_message_id): message}
+            "message:{}".format(Handler.current_message_id)
         )
-        self.cursor.hmset(
+        pipe.hmset(
             "handler:{}".format(self.id_of_handler),
             {"message:{}".format(Handler.current_message_id): message}
         )

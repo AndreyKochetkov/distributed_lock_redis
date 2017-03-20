@@ -25,6 +25,10 @@ def create_parser():
                         type=int,
                         default=0,
                         help="Db of redis. Default : 0")
+    parser.add_argument("--cleanTemp",
+                        type=str,
+                        default=None,
+                        help="clean trash files from db - send \'yes\' ")
     return parser
 
 
@@ -43,3 +47,24 @@ def get_errors(cursor):
             print("There are no errors more")
             return None
         print(message)
+
+
+def clean_db(cursor, count_of_instances):
+    """ Save all trash messages to queue with non handled and delete them from temp queue
+
+    Args:
+        cursor: class 'redis.client.StrictRedis', cursor for connection to redis
+        count_of_instances: amount of instances of this app from redis
+
+    Returns:
+        None: when list of temp messages will be empty
+    """
+    for i in range(count_of_instances):
+        messages = cursor.hgetall("temp:handler:{}".format(i))
+        for k in messages.keys():
+            cursor.rpush("queue", messages[k])
+            cursor.hdel(
+                "temp:handler:{}".format(i),
+                k
+            )
+            print(k)
