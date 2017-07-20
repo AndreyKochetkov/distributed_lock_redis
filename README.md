@@ -1,12 +1,15 @@
 # distributed_lock_redis
 
-   ## Using soft:
-        - Redis 3.2.8
-        - Python 3.6.0
-        - Redis-py 2.10.5: python client for redis
-        - Faker 8.1.2: random text
+   ## dependences:
+        - Redis 
+        - Python 3.4 and higher
 
   ##  Запуск:
+        
+        рекомендуется использовать virtualenv
+        
+        $ pip install -r requirements.txt
+        
         $ python  app_start.py - просто запустить программу
 
         $ python  app_start.py [-h] [--getErrors GETERRORS] [--host HOST] [--port PORT]
